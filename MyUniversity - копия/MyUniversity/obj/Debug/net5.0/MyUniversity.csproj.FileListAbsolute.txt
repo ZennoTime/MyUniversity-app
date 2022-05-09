@@ -1,0 +1,16 @@
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\MyUniversity.exe
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\MyUniversity.deps.json
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\MyUniversity.runtimeconfig.json
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\MyUniversity.runtimeconfig.dev.json
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\MyUniversity.dll
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\ref\MyUniversity.dll
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\bin\Debug\net5.0\MyUniversity.pdb
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.csproj.AssemblyReference.cache
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.AssemblyInfoInputs.cache
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.AssemblyInfo.cs
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.csproj.CoreCompileInputs.cache
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.dll
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\ref\MyUniversity.dll
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.pdb
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\net5.0\MyUniversity.genruntimeconfig.cache

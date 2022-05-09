@@ -1,0 +1,5 @@
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\netcoreapp2.2\MyUniversity.csproj.AssemblyReference.cache
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\netcoreapp2.2\MyUniversity.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\netcoreapp2.2\MyUniversity.AssemblyInfoInputs.cache
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\netcoreapp2.2\MyUniversity.AssemblyInfo.cs
+D:\Programming\TravelLine\TL development\MyUniversity-app\MyUniversity\MyUniversity\obj\Debug\netcoreapp2.2\MyUniversity.csproj.CoreCompileInputs.cache
