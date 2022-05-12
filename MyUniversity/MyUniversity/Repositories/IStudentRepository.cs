@@ -14,5 +14,9 @@ namespace MyUniversity.Repositories
         Student GetById( int id );
         List<Student> GetAll();
         void Update( Student student );
+        public void UpdateGroup( Student student );
+        Student GetByName( string name );
+        void AddStudentInGroup( Student student );
+
     }
 }

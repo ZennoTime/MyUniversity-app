@@ -10,7 +10,9 @@ namespace MyUniversity.Repositories
         List<Group> GetAll();
         Group GetById( int id );
         void Add( Group group );
-        void AddStudentInGroup( Group group );
+        //void AddStudentInGroup( Group group );
+        Group GetByName( string name );
+
         //bool Exists( int id );
     }
 }

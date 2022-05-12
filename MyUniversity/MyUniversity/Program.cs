@@ -108,12 +108,12 @@ namespace MyUniversity
 
                 else if ( command == "delete-student" )
                 {
-                    Console.WriteLine( "Введите id автора" );
+                    Console.WriteLine( "Введите id студента" );
                     int studentId = int.Parse( Console.ReadLine() );
                     var student = studentRepository.GetById( studentId );
                     if ( student == null )
                     {
-                        Console.WriteLine( "Автор не найден" );
+                        Console.WriteLine( "Студент не найден" );
                         continue;
                     }
 
@@ -172,32 +172,96 @@ namespace MyUniversity
 
                     string studentId = Console.ReadLine();
                     //Блок где добавляем студента в группу:) 
-                    int studentInGroup = name;
-                    groupRepository.Add( new Group
+                    /*int studentInGroup = name;*/
+                    /* groupRepository.Add( new Group
+                     {
+                         StudentInGroup = studentInGroup
+                     } );
+                     Console.WriteLine( "Успешно добавлено" );
+
+                     //
+
+                     *//*                    groupRepository.Add( new Group
+                                         {
+                                             GroupName = name
+                                         } );
+                                         Console.WriteLine( "Успешно добавлено" );*//*
+                 }
+
+                 else if ( command == "exit" )
+                 {
+                     return;
+                 }
+                 else
+                 {
+                     Console.WriteLine( "Команда не найдена" );
+                 }*/
+
+                }
+
+
+                //ПОПЫТКА ДОБАВИТЬ СТУДЕНТА В ГРУППУ
+                /*else if ( command == "add student in group" )
+                {
+                    Console.WriteLine( "Введите id студента" );
+                    int studentId = int.Parse( Console.ReadLine() );
+                    Student student = studentRepository.GetById( studentId );
+
+                    if ( student == null )
                     {
-                        StudentInGroup = studentInGroup
+                        Console.WriteLine( "Студент не найден" );
+                        continue;
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine( "Введите id группы" );
+                    int groupId = int.Parse( Console.ReadLine() );
+                    Group group = groupRepository.GetById( groupId );
+
+                    if ( group == null )
+                    {
+                        Console.WriteLine( "Группа не найдена" );
+                        continue;
+                    }
+                    studentRepository.UpdateGroup( new Student
+                    {
+                        GroupId = groupid,
                     } );
                     Console.WriteLine( "Успешно добавлено" );
+                    studentRepository.UpdateGroup( student );
+                    Console.WriteLine( "Успешно обновлено" );
+                }*/
 
-                    //
-
-                    /*                    groupRepository.Add( new Group
-                                        {
-                                            GroupName = name
-                                        } );
-                                        Console.WriteLine( "Успешно добавлено" );*/
-                }
-
-                else if ( command == "exit" )
+                else if ( command == "add student in group" )
                 {
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine( "Команда не найдена" );
-                }
+                    Console.WriteLine( "Введите имя студента с большой буквы" );
+                    string name = Console.ReadLine();
+                    Student student = studentRepository.GetByName( name );
 
+                    if ( student == null )
+                    {
+                        Console.WriteLine( "Студент не найден" );
+                        continue;
+                    }
+                    Console.WriteLine();
+
+                    Console.WriteLine( "Введите название группы" );
+                    string groupName = Console.ReadLine();
+                    Group group = groupRepository.GetByName( groupName );
+
+                    if ( group == null )
+                    {
+                        Console.WriteLine( "Группа не найдена" );
+                        continue;
+                    }
+                    Console.WriteLine();
+                    if (student != null & group != null)
+                        {
+                            
+                        }
+
+                }
             }
         }
     }
-} 
+}

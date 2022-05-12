@@ -2,10 +2,6 @@ use University --Создаеём таблицу
 create table Groups(
 	Id int identity(1,1) constraint PK_Groups primary key,
 	GroupName nvarchar(100),
-	StudentId integer,
-	Foreign Key (StudentId) references Student(Id) on update cascade,
-	StudentInGroup integer,
-	CheckStInGr integer,
 )
 ---------------------------------------------------------------------------
 
@@ -41,7 +37,7 @@ UPDATE Groups
 	SET StudentInGroup 
 
 
-select * from Groups
+select * from Student
 
 insert into Groups --Добавляем значения в колонку GroupName
 	(GroupName)
@@ -69,3 +65,5 @@ values
 
 select p.Title, p.Body, a.Name as AuthorName from Post as p
 join Author a on a.Id = p.AuthorId
+
+---------------------------------------------------------------

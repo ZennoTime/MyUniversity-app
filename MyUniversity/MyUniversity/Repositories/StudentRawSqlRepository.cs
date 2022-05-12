@@ -138,5 +138,78 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
+        public void UpdateGroup( Student student )
+        {
+            string sqlExpression = $@"update[ Student ] set[ GroupId ] = ( select Student.groupId from Student, where[ Id ] = @id AND Student.groupId = groupId";
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                using ( SqlCommand command = new SqlCommand( sqlExpression, connection ) )
+                {
+                    connection.Open();
+                    SqlParameter groupId = new SqlParameter();
+
+                    command.Parameters.Add( groupId );
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    command.Parameters.Add( "@groupid", SqlDbType.Int ).Value = student.GroupId;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public Student GetByName( string name )
+        {
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( SqlCommand command = connection.CreateCommand() )
+                {
+                    command.CommandText =
+                        @"select [Name]
+                        from [Student]
+                        where [Name] = @name";
+
+                    command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = name;
+                    using ( var reader = command.ExecuteReader() )
+                    {
+                        if ( reader.Read() )
+                        {
+                            return new Student
+                            {
+                                Name = Convert.ToString( reader[ "Name" ] )
+                            };
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void AddStudentInGroup( Student student )
+        {
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( SqlCommand command = connection.CreateCommand() )
+                {
+                    command.CommandText =
+                        @"update [Student]
+                        set [Name] = @name,
+                        [Age] = @age
+                        where [Id] = @id";
+
+                    command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = student.Name;
+                    command.Parameters.Add( "@id", SqlDbType.Int ).Value = student.Id;
+                    command.Parameters.Add( "@age", SqlDbType.Int ).Value = student.Age;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

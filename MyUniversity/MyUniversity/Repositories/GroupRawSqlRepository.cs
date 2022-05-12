@@ -90,7 +90,7 @@ namespace MyUniversity.Repositories
                 }
             }
         }
-        public void AddStudentInGroup( Group group )
+/*        public void AddStudentInGroup( Group group )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
             {
@@ -104,9 +104,37 @@ namespace MyUniversity.Repositories
                             (@id)
                         select SCOPE_IDENTITY()";
 
-                    command.Parameters.Add( "@id", SqlDbType.NVarChar ).Value = group.StudentInGroup;
-
                     group.Id = Convert.ToInt32( command.ExecuteScalar() );// РАЗБЕРИСЬ С ЭТИМ БЛОКОМ
+                }
+            }
+        }*/
+        public Group GetByName( string name )
+        {
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( SqlCommand command = connection.CreateCommand() )
+                {
+                    command.CommandText =
+                        @"select [GroupName]
+                        from [Groups]
+                        where [GroupName] = @name";
+
+                    command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = name;
+                    using ( var reader = command.ExecuteReader() )
+                    {
+                        if ( reader.Read() )
+                        {
+                            return new Group
+                            {
+                                GroupName = Convert.ToString( reader[ "GroupName" ] )
+                            };
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
                 }
             }
         }

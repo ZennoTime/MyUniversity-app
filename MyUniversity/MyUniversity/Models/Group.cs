@@ -10,15 +10,11 @@ namespace MyUniversity.Models
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
-        public int StudentId { get; set; }
-        public int StudentInGroup { get; set; }
 
         public Group()
         {
             Id = 0;
             GroupName = "";
-            StudentId = 0;
-            StudentInGroup = 0;
         }
 
         
