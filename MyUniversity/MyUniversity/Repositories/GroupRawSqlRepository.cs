@@ -90,24 +90,26 @@ namespace MyUniversity.Repositories
                 }
             }
         }
-/*        public void AddStudentInGroup( Group group )
-        {
-            using ( var connection = new SqlConnection( _connectionString ) )
-            {
-                connection.Open();
-                using ( SqlCommand command = connection.CreateCommand() )
+        /*        public void AddStudentInGroup( Group group )
                 {
-                    command.CommandText =
-                        @"insert into [Groups] (StudentId)
-                        Select Id From Student
-                        values
-                            (@id)
-                        select SCOPE_IDENTITY()";
+                    using ( var connection = new SqlConnection( _connectionString ) )
+                    {
+                        connection.Open();
+                        using ( SqlCommand command = connection.CreateCommand() )
+                        {
+                            command.CommandText =
+                                @"insert into [Groups] (StudentId)
+                                Select Id From Student
+                                values
+                                    (@id)
+                                select SCOPE_IDENTITY()";
 
-                    group.Id = Convert.ToInt32( command.ExecuteScalar() );// РАЗБЕРИСЬ С ЭТИМ БЛОКОМ
-                }
-            }
-        }*/
+                            group.Id = Convert.ToInt32( command.ExecuteScalar() );// РАЗБЕРИСЬ С ЭТИМ БЛОКОМ
+                        }
+                    }
+                }*/
+
+        //ЗАПАСНОЙ ПЛАН
         public Group GetByName( string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -118,9 +120,10 @@ namespace MyUniversity.Repositories
                     command.CommandText =
                         @"select [GroupName]
                         from [Groups]
-                        where [GroupName] = @name";
+                        where [GroupName] = @groupname";
 
-                    command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = name;
+
+                    command.Parameters.Add( "@groupname", SqlDbType.NVarChar ).Value = name;
                     using ( var reader = command.ExecuteReader() )
                     {
                         if ( reader.Read() )
@@ -128,6 +131,7 @@ namespace MyUniversity.Repositories
                             return new Group
                             {
                                 GroupName = Convert.ToString( reader[ "GroupName" ] )
+
                             };
                         }
                         else

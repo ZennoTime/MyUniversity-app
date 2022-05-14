@@ -190,7 +190,7 @@ namespace MyUniversity.Repositories
             }
         }
 
-        public void AddStudentInGroup( Student student )
+        public void AddStudentInGroup( string groupName, string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
             {
@@ -199,17 +199,54 @@ namespace MyUniversity.Repositories
                 {
                     command.CommandText =
                         @"update [Student]
-                        set [Name] = @name,
-                        [Age] = @age
-                        where [Id] = @id";
+                        set [GroupId] = ( 
+                            select Groups.Id
+                            from Groups
+                            where Groups.GroupName = @groupname
+                            )
+                        where Student.Name = @name";
 
-                    command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = student.Name;
-                    command.Parameters.Add( "@id", SqlDbType.Int ).Value = student.Id;
-                    command.Parameters.Add( "@age", SqlDbType.Int ).Value = student.Age;
-
-                    command.ExecuteNonQuery();
+                    command.Parameters.Add( "@groupname", SqlDbType.NVarChar ).Value = groupName;
+                    command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = name;
+                    command.ExecuteNonQuery();//ПОДУМАЙ НАД ТЕМ, ЧТО ВЫХОДИТ ПОСЛЕ ВЫПОЛНЕНИЯ SQL КОМАНДЫ, @groupname - это не правильно, должен быть Id группы 
                 }
             }
         }
+
+        public List<Student> GetStudentByGroupId( int groupId )
+        {
+            var result = new List<Student>();
+
+            using ( var connection = new SqlConnection( _connectionString ) )
+            {
+                connection.Open();
+                using ( SqlCommand command = connection.CreateCommand() )
+                {
+                    command.CommandText =
+                        @"Select Name, Id, Age
+                          From Student
+                          where GroupId = @groupId";
+
+                    command.Parameters.Add( "@groupId", SqlDbType.Int ).Value = groupId;
+
+                    using ( var reader = command.ExecuteReader() )
+                    {
+                        while ( reader.Read() )
+                        {
+                            result.Add( new Student
+                            {
+                                Id = Convert.ToInt32( reader[ "Id" ] ),
+                                Name = Convert.ToString( reader[ "Name" ] ),
+                                Age = Convert.ToInt32( reader[ "Age" ] )
+                            } );
+                        }
+                    }
+                    command.ExecuteNonQuery();
+                }   
+            }
+
+            return result;
+        }
+
     }
 }

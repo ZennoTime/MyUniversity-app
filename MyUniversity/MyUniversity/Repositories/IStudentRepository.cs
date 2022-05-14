@@ -16,7 +16,8 @@ namespace MyUniversity.Repositories
         void Update( Student student );
         public void UpdateGroup( Student student );
         Student GetByName( string name );
-        void AddStudentInGroup( Student student );
+        void AddStudentInGroup( string groupName, string name );
+        List<Student> GetStudentByGroupId( int groupId );
 
     }
 }

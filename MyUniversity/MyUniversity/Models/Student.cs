@@ -24,7 +24,7 @@ namespace MyUniversity.Models
 
         public override string ToString()
         {
-            return $"Student: (ID: {Id}, name: {Name}, age: {Age}, group : {GroupId})";
+            return $"Student: (ID: {Id}, name: {Name}, age: {Age}, GroupId : {GroupId})";
         }
     }
 }
