@@ -6,44 +6,46 @@ using System.Data.SqlClient;
 
 namespace MyUniversity.Repositories
 {
-    class StudentRawSqlRepository : IStudentRepository
+    class StudentSqlRepository : IStudentRepository
     {
         private readonly string _connectionString;
-
-        public StudentRawSqlRepository( string connectionString )
+        public StudentSqlRepository( string connectionString )
         {
             _connectionString = connectionString;
         }
-
         public List<Student> GetAll()
         {
             var result = new List<Student>();
-
             using ( var connection = new SqlConnection( _connectionString ) )
             {
                 connection.Open();
                 using ( SqlCommand command = connection.CreateCommand() )
                 {
                     command.CommandText = "select [Id], [Name], [Age] from [Student]";
-
                     using ( var reader = command.ExecuteReader() )
                     {
-                        while ( reader.Read() )
+                        if ( reader.HasRows )
                         {
-                            result.Add( new Student
+                            while ( reader.Read() )
                             {
-                                Id = Convert.ToInt32( reader[ "Id" ] ),
-                                Name = Convert.ToString( reader[ "Name" ] ),
-                                Age = Convert.ToInt32( reader[ "Age" ] )
-                            } );
+                                result.Add( new Student
+                                {
+                                    Id = Convert.ToInt32( reader[ "Id" ] ),
+                                    Name = Convert.ToString( reader[ "Name" ] ),
+                                    Age = Convert.ToInt32( reader[ "Age" ] )
+                                } );
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine( "Студентов нет в Базе Данных" );
                         }
                     }
                 }
             }
-
             return result;
         }
-
         public void Add( Student student )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -60,12 +62,10 @@ namespace MyUniversity.Repositories
 
                     command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = student.Name;
                     command.Parameters.Add( "@age", SqlDbType.Int ).Value = student.Age; 
-
                     student.Id = Convert.ToInt32( command.ExecuteScalar() );
                 }
             }
         }
-
         public Student GetById( int id )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -98,7 +98,6 @@ namespace MyUniversity.Repositories
                 }
             }
         }
-
         public void Update( Student student )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -115,12 +114,10 @@ namespace MyUniversity.Repositories
                     command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = student.Name;
                     command.Parameters.Add( "@id", SqlDbType.Int ).Value = student.Id;
                     command.Parameters.Add( "@age", SqlDbType.Int ).Value = student.Age;
-
                     command.ExecuteNonQuery();
                 }
             }
         }
-
         public void DeleteById( int id )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -133,32 +130,10 @@ namespace MyUniversity.Repositories
                         where [Id] = @id";
 
                     command.Parameters.Add( "@id", SqlDbType.Int ).Value = id;
-
                     command.ExecuteNonQuery();
                 }
             }
         }
-
-        public void UpdateGroup( Student student )
-        {
-            string sqlExpression = $@"update[ Student ] set[ GroupId ] = ( select Student.groupId from Student, where[ Id ] = @id AND Student.groupId = groupId";
-            using ( var connection = new SqlConnection( _connectionString ) )
-            {
-                using ( SqlCommand command = new SqlCommand( sqlExpression, connection ) )
-                {
-                    connection.Open();
-                    SqlParameter groupId = new SqlParameter();
-
-                    command.Parameters.Add( groupId );
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    command.Parameters.Add( "@groupid", SqlDbType.Int ).Value = student.GroupId;
-
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
         public Student GetByName( string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -189,7 +164,6 @@ namespace MyUniversity.Repositories
                 }
             }
         }
-
         public void AddStudentInGroup( string groupName, string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -208,15 +182,13 @@ namespace MyUniversity.Repositories
 
                     command.Parameters.Add( "@groupname", SqlDbType.NVarChar ).Value = groupName;
                     command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = name;
-                    command.ExecuteNonQuery();//ПОДУМАЙ НАД ТЕМ, ЧТО ВЫХОДИТ ПОСЛЕ ВЫПОЛНЕНИЯ SQL КОМАНДЫ, @groupname - это не правильно, должен быть Id группы 
+                    command.ExecuteNonQuery();
                 }
             }
         }
-
         public List<Student> GetStudentByGroupId( int groupId )
         {
             var result = new List<Student>();
-
             using ( var connection = new SqlConnection( _connectionString ) )
             {
                 connection.Open();
@@ -228,25 +200,32 @@ namespace MyUniversity.Repositories
                           where GroupId = @groupId";
 
                     command.Parameters.Add( "@groupId", SqlDbType.Int ).Value = groupId;
-
                     using ( var reader = command.ExecuteReader() )
                     {
-                        while ( reader.Read() )
+                        if ( reader.HasRows )
                         {
-                            result.Add( new Student
+                            while ( reader.Read() )
                             {
-                                Id = Convert.ToInt32( reader[ "Id" ] ),
-                                Name = Convert.ToString( reader[ "Name" ] ),
-                                Age = Convert.ToInt32( reader[ "Age" ] )
-                            } );
+                                result.Add( new Student
+                                {
+                                    Id = Convert.ToInt32( reader[ "Id" ] ),
+                                    Name = Convert.ToString( reader[ "Name" ] ),
+                                    Age = Convert.ToInt32( reader[ "Age" ] )
+                                } );
+                                Console.WriteLine();
+                                Console.WriteLine( $"Студенты в группе с Id: {groupId}" );
+                                Console.WriteLine();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine( $"Ни один студент не состоит в группе с Id: {groupId}" );
                         }
                     }
                     command.ExecuteNonQuery();
                 }   
             }
-
             return result;
         }
-
     }
 }
