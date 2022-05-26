@@ -9,10 +9,12 @@ namespace MyUniversity.Repositories
     class GroupSqlRepository : IGroupRepository
     {
         private readonly string _connectionString;
+
         public GroupSqlRepository( string connectionString )
         {
             _connectionString = connectionString;
         }
+
         public List<Group> GetAll()
         {
             var result = new List<Group>();
@@ -29,11 +31,7 @@ namespace MyUniversity.Repositories
                         {
                             while ( reader.Read() )
                             {
-                                result.Add( new Group
-                                {
-                                    Id = Convert.ToInt32( reader[ "Id" ] ),
-                                    GroupName = Convert.ToString( reader[ "GroupName" ] )
-                                } );
+                                result.Add( new Group ( Convert.ToString( reader[ "GroupName" ]), Convert.ToInt32( reader[ "Id" ] )));
                             }
                         }
                         else
@@ -46,6 +44,7 @@ namespace MyUniversity.Repositories
             }
             return result;
         }
+
         public void Add( Group group )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -65,6 +64,7 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
         public Group GetByName( string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -82,11 +82,7 @@ namespace MyUniversity.Repositories
                     {
                         if ( reader.Read() )
                         {
-                            return new Group
-                            {
-                                GroupName = Convert.ToString( reader[ "GroupName" ] )
-
-                            };
+                            return new Group( Convert.ToString( reader[ "GroupName" ] ));
                         }
                         else
                         {

@@ -5,7 +5,7 @@ create table Student(
 	Name nvarchar(100),
 	Age int,
 	GroupId int
-	Foreign Key (GroupId) references Groups(Id) on update cascade,
+	foreign Key (GroupId) references Groups(Id) on update cascade,
 )
 
 select * from Student
@@ -17,29 +17,27 @@ values
 	('Ёскель', 19),
 	('Ћамберт', 20)
 
-ALTER TABLE Student ADD Age int;
 
 delete from Student
 
 -------------------------------------------------------------------------- Ѕлок кода, где можно изменить определенную €чейку
 
-UPDATE Student 
-    SET GroupId = (
-        SELECT Groups.Id
-        FROM Groups
-		WHERE Groups.GroupName = 'PS - 12'
+update Student 
+    set GroupId = (
+        select Groups.Id
+        from Groups
+		where Groups.GroupName = 'PS - 12'
 		)
-	WHERE Student.Name = '√еральт'
+	where Student.Name = '√еральт'
 -------------------------------------------------------------------------- Ёксперименты 
-UPDATE Student
-SET GroupId = 2
-WHERE GroupId = 1
+update Student
+set GroupId = 2
+where GroupId = 1
 
-UPDATE Student
-SET GroupId = 3
-WHERE Student.Id = 2
+update Student
+set GroupId = 3
+where Student.Id = 2
 ------------------------------------------------------------------------ ¬ывожу студентов по ID группы
-SELECT Name
-FROM Student
-WHERE GroupId = 5 
-
+select Name
+from Student
+where GroupId = 5 

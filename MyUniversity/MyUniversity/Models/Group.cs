@@ -4,14 +4,16 @@
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
-        public Group()
+
+        public Group( string groupName, int id)
         {
-            Id = 0;
-            GroupName = "";
+            Id = id;
+            GroupName = groupName;
         }
-        public override string ToString()
+
+        public Group (string groupName )
         {
-            return $"ID {Id}, Group {GroupName}";
+            GroupName = groupName;
         }
     }
 }

@@ -8,8 +8,8 @@ create table Groups(
 select * from Groups --Вывод содержимого таблицы
 
 -----------------------------------------------------------------------------
-ALTER TABLE Groups ADD CheckStInGr integer --Добавить столбец в таблицу
-ALTER TABLE Groups DROP COLUMN CheckStInGr; --Удалить столбец из талблицы
+alter table Groups add CheckStInGr integer --Добавить столбец в таблицу
+alter table Groups drop column CheckStInGr; --Удалить столбец из талблицы
 
 ------------------------------------------------------------------------------
 

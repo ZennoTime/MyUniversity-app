@@ -9,10 +9,12 @@ namespace MyUniversity.Repositories
     class StudentSqlRepository : IStudentRepository
     {
         private readonly string _connectionString;
+
         public StudentSqlRepository( string connectionString )
         {
             _connectionString = connectionString;
         }
+
         public List<Student> GetAll()
         {
             var result = new List<Student>();
@@ -29,11 +31,12 @@ namespace MyUniversity.Repositories
                             while ( reader.Read() )
                             {
                                 result.Add( new Student
-                                {
-                                    Id = Convert.ToInt32( reader[ "Id" ] ),
-                                    Name = Convert.ToString( reader[ "Name" ] ),
-                                    Age = Convert.ToInt32( reader[ "Age" ] )
-                                } );
+                                (
+                                    Convert.ToInt32( reader[ "Id" ] ),
+                                    Convert.ToInt32( reader[ "Age" ] ),
+                                    Convert.ToString( reader[ "Name" ] )
+
+                                ));
                             }
                         }
                         else
@@ -46,6 +49,7 @@ namespace MyUniversity.Repositories
             }
             return result;
         }
+
         public void Add( Student student )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -62,10 +66,12 @@ namespace MyUniversity.Repositories
 
                     command.Parameters.Add( "@name", SqlDbType.NVarChar ).Value = student.Name;
                     command.Parameters.Add( "@age", SqlDbType.Int ).Value = student.Age; 
+
                     student.Id = Convert.ToInt32( command.ExecuteScalar() );
                 }
             }
         }
+
         public Student GetById( int id )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -84,11 +90,11 @@ namespace MyUniversity.Repositories
                         if ( reader.Read() )
                         {
                             return new Student
-                            {
-                                Id = Convert.ToInt32( reader[ "Id" ] ),
-                                Name = Convert.ToString( reader[ "Name" ] ),
-                                Age = Convert.ToInt32( reader[ "Age" ] )
-                            };
+                            (
+                                Convert.ToInt32( reader[ "Id" ] ),
+                                Convert.ToInt32( reader[ "Age" ] ),
+                                Convert.ToString( reader[ "Name" ] )
+                            );
                         }
                         else
                         {
@@ -98,6 +104,7 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
         public void Update( Student student )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -118,6 +125,7 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
         public void DeleteById( int id )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -134,6 +142,7 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
         public Student GetByName( string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -151,10 +160,7 @@ namespace MyUniversity.Repositories
                     {
                         if ( reader.Read() )
                         {
-                            return new Student
-                            {
-                                Name = Convert.ToString( reader[ "Name" ] )
-                            };
+                            return new Student( Convert.ToString( reader[ "Name" ] ) );
                         }
                         else
                         {
@@ -164,6 +170,7 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
         public void AddStudentInGroup( string groupName, string name )
         {
             using ( var connection = new SqlConnection( _connectionString ) )
@@ -186,9 +193,11 @@ namespace MyUniversity.Repositories
                 }
             }
         }
+
         public List<Student> GetStudentByGroupId( int groupId )
         {
             var result = new List<Student>();
+
             using ( var connection = new SqlConnection( _connectionString ) )
             {
                 connection.Open();
@@ -207,11 +216,12 @@ namespace MyUniversity.Repositories
                             while ( reader.Read() )
                             {
                                 result.Add( new Student
-                                {
-                                    Id = Convert.ToInt32( reader[ "Id" ] ),
-                                    Name = Convert.ToString( reader[ "Name" ] ),
-                                    Age = Convert.ToInt32( reader[ "Age" ] )
-                                } );
+                                (
+                                    Convert.ToInt32( reader[ "Id" ] ),
+                                    Convert.ToInt32( reader[ "Age" ] ),
+                                    Convert.ToString( reader[ "Name" ] )
+                                ));
+
                                 Console.WriteLine();
                                 Console.WriteLine( $"Студенты в группе с Id: {groupId}" );
                                 Console.WriteLine();

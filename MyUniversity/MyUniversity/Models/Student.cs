@@ -5,18 +5,23 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public int GroupId { get; set; }
-        public Student()
-        {
-            Id = 0;
-            Name = "";
-            Age = 0;
-            GroupId = 0;
 
-        }
-        public override string ToString()
+        public Student( int id, int age, string name)
         {
-            return $"Student: (ID: {Id}, name: {Name}, age: {Age}, GroupId : {GroupId})";
+            Id = id;
+            Age = age;
+            Name = name;
+        }
+
+        public Student (string name )
+        {
+            Name = name;
+        }
+
+        public Student ( int age, string name )
+        {
+            Age = age;
+            Name = name;
         }
     }
 }
