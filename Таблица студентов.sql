@@ -31,13 +31,13 @@ update Student
 	where Student.Name = 'Геральт'
 -------------------------------------------------------------------------- Эксперименты 
 update Student
-set GroupId = 2
-where GroupId = 1
+	set GroupId = 2
+	where GroupId = 1
 
 update Student
-set GroupId = 3
-where Student.Id = 2
+	set GroupId = 3
+	where Student.Id = 2
 ------------------------------------------------------------------------ Вывожу студентов по ID группы
 select Name
-from Student
-where GroupId = 5 
+	from Student
+	where GroupId = 5 
